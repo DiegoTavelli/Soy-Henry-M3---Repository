@@ -94,15 +94,16 @@ function problemB() {
 
   // promise version
   // ???
-  const promises = filenames.forEach(file => {
-    promisifiedReadFile(file)
-      .then((stanza) => {
-        blue(stanza)
-      })
-  })
-  Promise.all(promises)
-    .then(() => console.log('done'))
-  console.log(promises)
+
+
+  Promise.all(filenames.map((file) => promisifiedReadFile(file)))
+    .then((stanzas) => {
+      stanzas.forEach(stanza => blue(stanza))
+    })
+    .finally(() => {
+      console.log('-- B. callback version done --')
+    })
+
 }
 
 function problemC() {
@@ -121,21 +122,32 @@ function problemC() {
   });
 
   // callback version
-  async.eachSeries(filenames,
-    function (filename, eachDone) {
-      readFile(filename, function (err, stanza) {
-        console.log('-- C. callback version --');
-        blue(stanza);
-        eachDone();
-      });
-    },
-    function (err) {
-      console.log('-- C. callback version done --');
-    }
-  );
+  // async.eachSeries(filenames,
+  //   function (filename, eachDone) {
+  //     readFile(filename, function (err, stanza) {
+  //       console.log('-- C. callback version --');
+  //       blue(stanza);
+  //       eachDone();
+  //     });
+  //   },
+  //   function (err) {
+  //     console.log('-- C. callback version done --');
+  //   }
+  // );
 
   // promise version
   // ???
+  filenames.reduce((promise, file) => {
+    return promise.then((stanza) => {
+      if (stanza) {
+        blue(stanza)
+      }
+      return promisifiedReadFile(file)
+    })
+  }, Promise.resolve(false))
+    .then(stanza => blue(stanza))
+    .finally(() => console.log('-- C. callback version done --'))
+
 
 }
 
@@ -157,24 +169,34 @@ function problemD() {
   filenames[randIdx] = 'wrong-file-name-' + (randIdx + 1) + '.txt';
 
   // callback version
-  async.eachSeries(filenames,
-    function (filename, eachDone) {
-      readFile(filename, function (err, stanza) {
-        console.log('-- D. callback version --');
-        if (err) return eachDone(err);
-        blue(stanza);
-        eachDone();
-      });
-    },
-    function (err) {
-      if (err) magenta(new Error(err));
-      console.log('-- D. callback version done --');
-    }
-  );
+  // async.eachSeries(filenames,
+  //   function (filename, eachDone) {
+  //     readFile(filename, function (err, stanza) {
+  //       console.log('-- D. callback version --');
+  //       if (err) return eachDone(err);
+  //       blue(stanza);
+  //       eachDone();
+  //     });
+  //   },
+  //   function (err) {
+  //     if (err) magenta(new Error(err));
+  //     console.log('-- D. callback version done --');
+  //   }
+  // );
 
   // promise version
   // ???
-
+  filenames.reduce((promise, file) => {
+    return promise.then((stanza) => {
+      if (stanza) {
+        blue(stanza)
+      }
+      return promisifiedReadFile(file)
+    })
+  }, Promise.resolve(false))
+    .then(stanza => blue(stanza))
+    .catch(err => magenta(new Error(err)))
+    .finally(() => console.log('-- C. callback version done --'))
 }
 
 function problemE() {
