@@ -1,0 +1,5 @@
+{
+  "prettier.semi": true,
+  "editor.mouseWheelScrollSensitivity": 1,
+  "editor.mouseWheelZoom": true
+}

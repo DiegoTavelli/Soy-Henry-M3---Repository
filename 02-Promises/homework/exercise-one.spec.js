@@ -38,7 +38,7 @@ function resetCalls(spy) {
 	spy.__spy.calls = [];
 }
 
-xdescribe('exercise one (involving poem one)', function () {
+describe('exercise one (involving poem one)', function () {
 
 	beforeEach(function () {
 		resetCalls(blue);

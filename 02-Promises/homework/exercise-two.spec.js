@@ -59,7 +59,7 @@ describe('exercise two (involving poem two)', function () {
 		});
 	}
 
-	xdescribe('problemA', function () {
+	describe('problemA', function () {
 
 		it('ignoring errors, logs the first and second stanza in any order, and a done message when both are complete', function (done) {
 			exercise.problemA();
@@ -76,7 +76,7 @@ describe('exercise two (involving poem two)', function () {
 
 	});
 
-	xdescribe('problemB', function () {
+	describe('problemB', function () {
 
 		it('ignoring errors, logs all stanzas in any order, and a done message when all are complete', function (done) {
 			exercise.problemB();
@@ -94,7 +94,7 @@ describe('exercise two (involving poem two)', function () {
 
 	});
 
-	xdescribe('problemC', function () {
+	describe('problemC', function () {
 
 		it('ignoring errors, logs all stanzas in the correct order, and a done message when all are complete', function (done) {
 			exercise.problemC();
