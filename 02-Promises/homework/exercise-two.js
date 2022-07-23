@@ -209,5 +209,11 @@ function problemE() {
   var fs = require('fs');
   function promisifiedWriteFile(filename, str) {
     // tu código aquí
+    return new Promise((resolve, reject) => {
+      fs.writeFile(filename, str, 'utf8', function (err) {
+        if (err) return reject(err);
+        resolve();
+      });
+    })
   }
 }
